@@ -1,0 +1,13 @@
+<h1>Caixas</h1>
+<%= link_to "Novo caixa", new_checkout_path %>
+
+<ul>
+  <% @checkouts.each do |checkout| %>
+    <li>
+      <%# condição ? valor_se_verdadeiro : valor_se_falso (um if de uma linha só). %>
+      <%= link_to checkout.name, checkout %> | <%= checkout.open ? "Aberto" : "Fechado" %> |
+      <%= link_to "Editar", edit_checkout_path(checkout) %> |
+      <%= button_to "Apagar", checkout_path(checkout), method: :delete, data: { turbo_confirm: "Certeza?" } %>
+    </li>
+  <% end %>
+</ul>

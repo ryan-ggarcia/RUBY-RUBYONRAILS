@@ -1,0 +1,19 @@
+<%# Mesmo formulário para o new e o edit (veja a explicação em categories/_form.html.erb). %>
+<%= form_with model: checkout do |form| %>
+  <% checkout.errors.full_messages.each do |mensagem| %>
+    <p style="color: red"><%= mensagem %></p>
+  <% end %>
+
+  <p>
+    <%= form.label :name, "Nome" %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%# check_box envia "1" (marcado) ou "0" e o Rails transforma em true/false. %>
+    <%= form.check_box :open %>
+    <%= form.label :open, "Aberto" %>
+  </p>
+
+  <%= form.submit %>
+<% end %>

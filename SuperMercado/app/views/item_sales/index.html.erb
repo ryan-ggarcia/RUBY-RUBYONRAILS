@@ -1,0 +1,14 @@
+<h1>Itens das vendas</h1>
+<%= link_to "Novo item", new_item_sale_path %>
+
+<ul>
+  <% @item_sales.each do |item| %>
+    <li>
+      <%= link_to "Venda ##{item.sale_id}", item.sale %> |
+      <%= link_to "#{item.quantity}x #{item.product.name}", item %> |
+      <%= number_to_currency(item.unit_price, unit: "R$ ") %> |
+      <%= link_to "Editar", edit_item_sale_path(item) %> |
+      <%= button_to "Apagar", item_sale_path(item), method: :delete, data: { turbo_confirm: "Certeza?" } %>
+    </li>
+  <% end %>
+</ul>

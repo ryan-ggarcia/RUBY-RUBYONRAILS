@@ -1,0 +1,35 @@
+<%# Mesmo formulário para o new e o edit (veja a explicação em categories/_form.html.erb). %>
+<%= form_with model: product do |form| %>
+  <% product.errors.full_messages.each do |mensagem| %>
+    <p style="color: red"><%= mensagem %></p>
+  <% end %>
+
+  <p>
+    <%= form.label :name, "Nome" %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :price, "Preço" %><br>
+    <%# step: 0.01 deixa digitar centavos (sem ele o campo aceita só número inteiro). %>
+    <%= form.number_field :price, step: 0.01 %>
+  </p>
+
+  <p>
+    <%= form.label :inventory, "Estoque" %><br>
+    <%= form.number_field :inventory %>
+  </p>
+
+  <p>
+    <%= form.label :barcode, "Código de barras" %><br>
+    <%= form.text_field :barcode %>
+  </p>
+
+  <p>
+    <%= form.label :category_id, "Categoria" %><br>
+    <%# collection_select monta um select: (campo, lista, valor que é salvo, texto que aparece). %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "Selecione" %>
+  </p>
+
+  <%= form.submit %>
+<% end %>

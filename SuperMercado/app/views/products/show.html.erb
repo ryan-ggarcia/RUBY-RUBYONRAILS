@@ -1,0 +1,8 @@
+<h2><%= @product.name %></h2>
+<p>Categoria: <%= @product.category.name %></p>
+<p>Preço: <%= number_to_currency(@product.price, unit: "R$ ") %></p>
+<p>Estoque: <%= @product.inventory %></p>
+<p>Código de barras: <%= @product.barcode %></p>
+
+<%= link_to "Editar", edit_product_path(@product) %> |
+<%= link_to "Voltar", products_path %>

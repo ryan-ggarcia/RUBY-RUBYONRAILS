@@ -1,0 +1,20 @@
+<%# ERRO: o título estava "Categorys" (o plural em inglês é "Categories"). %>
+<h1>Categorias</h1>
+<%= link_to "Nova categoria", new_category_path %>
+
+<%# ERRO: o <ul> estava dentro do loop (criava uma lista para cada item) e dentro de um <p> (HTML inválido). %>
+<%# CORREÇÃO: um <ul> fora do loop e um <li> para cada categoria. %>
+<ul>
+  <% @categories.each do |c| %>
+    <%# ERRO: estava "<% c.name" sem o "=", então o nome não aparecia. %>
+    <%# CORREÇÃO: a tag "<%" só executa o código; a tag "<%=" executa e MOSTRA o resultado na tela. %>
+    <%# link_to c.name, c => o Rails monta o link para a página show da categoria (/categories/1). %>
+    <li>
+      <%= link_to c.name, c %> |
+      <%= link_to "Editar", edit_category_path(c) %> |
+      <%# ERRO: estava categories_path(c), que gera /categories.1 e não existe rota de DELETE para isso. %>
+      <%# CORREÇÃO: category_path(c) (singular) gera /categories/1, a URL de UMA categoria. %>
+      <%= button_to "Apagar", category_path(c), method: :delete, data: { turbo_confirm: "Certeza?" } %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,5 @@
+<h2><%= @category.name %></h2>
+
+<%# ERRO: os links estavam com "<%" sem o "=" e por isso não apareciam na tela. %>
+<%= link_to "Editar", edit_category_path(@category) %> |
+<%= link_to "Voltar", categories_path %>

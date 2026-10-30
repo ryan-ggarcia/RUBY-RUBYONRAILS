@@ -1,0 +1,20 @@
+<%# Partial: arquivo que começa com "_" e é reaproveitado por outras views. %>
+<%# Este formulário serve para o new E para o edit: %>
+<%#   - objeto novo (Category.new)  -> o form envia POST  /categories   (create) %>
+<%#   - objeto do banco (find)      -> o form envia PATCH /categories/1 (update) %>
+<%# "category" (sem @) é a variável local passada pelo render, ex.: render "form", category: @category %>
+<%= form_with model: category do |form| %>
+  <%# Erros da validação do model (validates). Só aparecem quando o save/update falha. %>
+  <% category.errors.full_messages.each do |mensagem| %>
+    <p style="color: red"><%= mensagem %></p>
+  <% end %>
+
+  <p>
+    <%# O nome no label/campo tem que ser igual ao nome da coluna no banco (name). %>
+    <%= form.label :name, "Nome" %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <%# Sem texto, o botão escolhe sozinho: "Create Category" no new e "Update Category" no edit. %>
+  <%= form.submit %>
+<% end %>

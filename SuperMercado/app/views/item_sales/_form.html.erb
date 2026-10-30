@@ -1,0 +1,29 @@
+<%# Mesmo formulário para o new e o edit (veja a explicação em categories/_form.html.erb). %>
+<%= form_with model: item_sale do |form| %>
+  <% item_sale.errors.full_messages.each do |mensagem| %>
+    <p style="color: red"><%= mensagem %></p>
+  <% end %>
+
+  <p>
+    <%= form.label :sale_id, "Venda" %><br>
+    <%# Venda não tem nome, então o texto da opção é o próprio id. %>
+    <%= form.collection_select :sale_id, Sale.all, :id, :id, prompt: "Selecione" %>
+  </p>
+
+  <p>
+    <%= form.label :product_id, "Produto" %><br>
+    <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Selecione" %>
+  </p>
+
+  <p>
+    <%= form.label :quantity, "Quantidade" %><br>
+    <%= form.number_field :quantity %>
+  </p>
+
+  <p>
+    <%= form.label :unit_price, "Preço unitário" %><br>
+    <%= form.number_field :unit_price, step: 0.01 %>
+  </p>
+
+  <%= form.submit %>
+<% end %>

@@ -1,0 +1,5 @@
+<h2><%= @checkout.name %></h2>
+<p>Situação: <%= @checkout.open ? "Aberto" : "Fechado" %></p>
+
+<%= link_to "Editar", edit_checkout_path(@checkout) %> |
+<%= link_to "Voltar", checkouts_path %>

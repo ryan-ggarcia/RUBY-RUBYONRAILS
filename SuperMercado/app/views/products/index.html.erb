@@ -1,0 +1,15 @@
+<h1>Produtos</h1>
+<%= link_to "Novo produto", new_product_path %>
+
+<ul>
+  <% @products.each do |product| %>
+    <li>
+      <%# product.category funciona por causa do belongs_to :category no model. %>
+      <%= link_to product.name, product %> | <%= product.category.name %> |
+      <%# number_to_currency formata dinheiro: 9.9 vira "R$ 9.90". %>
+      <%= number_to_currency(product.price, unit: "R$ ") %> |
+      <%= link_to "Editar", edit_product_path(product) %> |
+      <%= button_to "Apagar", product_path(product), method: :delete, data: { turbo_confirm: "Certeza?" } %>
+    </li>
+  <% end %>
+</ul>

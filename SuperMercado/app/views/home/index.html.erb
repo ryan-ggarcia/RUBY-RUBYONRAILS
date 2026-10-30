@@ -1,0 +1,32 @@
+<%# Página inicial (landing page). A linha root em config/routes.rb faz o endereço "/" abrir esta view. %>
+<%# class="home": o CSS da página inicial fica no fim de application.css e só vale aqui dentro. %>
+<section class="home">
+  <h1>SuperMercado</h1>
+  <p>Sistema do mercado: cadastre os produtos, abra os caixas e registre as vendas.</p>
+  <p>Faça os cadastros nesta ordem. Cada passo usa o que foi cadastrado no anterior.</p>
+
+  <%# <ol> = lista numerada, porque a ordem importa. %>
+  <%# categories_path, products_path... são os "route helpers": o Rails cria um para cada resources. %>
+  <ol>
+    <li>
+      <%= link_to "Categorias", categories_path %>
+      <span>Tipos de produto: Bebidas, Limpeza, Hortifrúti.</span>
+    </li>
+    <li>
+      <%= link_to "Produtos", products_path %>
+      <span>Preço, estoque e código de barras. Todo produto tem uma categoria.</span>
+    </li>
+    <li>
+      <%= link_to "Caixas", checkouts_path %>
+      <span>Os caixas do mercado e se estão abertos.</span>
+    </li>
+    <li>
+      <%= link_to "Vendas", sales_path %>
+      <span>Cada compra passada em um caixa.</span>
+    </li>
+    <li>
+      <%= link_to "Itens da venda", item_sales_path %>
+      <span>Os produtos e as quantidades de cada venda.</span>
+    </li>
+  </ol>
+</section>

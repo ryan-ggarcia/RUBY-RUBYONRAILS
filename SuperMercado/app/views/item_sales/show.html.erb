@@ -1,0 +1,7 @@
+<h2>Item da venda #<%= @item_sale.sale_id %></h2>
+<p>Produto: <%= @item_sale.product.name %></p>
+<p>Quantidade: <%= @item_sale.quantity %></p>
+<p>Preço unitário: <%= number_to_currency(@item_sale.unit_price, unit: "R$ ") %></p>
+
+<%= link_to "Editar", edit_item_sale_path(@item_sale) %> |
+<%= link_to "Voltar", item_sales_path %>

@@ -1,0 +1,8 @@
+<h2>Venda #<%= @sale.id %></h2>
+<p>Caixa: <%= @sale.checkout.name %></p>
+<p>Total: <%= number_to_currency(@sale.total, unit: "R$ ") %></p>
+<p>Status: <%= @sale.status %></p>
+<p>Finalizada em: <%= @sale.completed_at %></p>
+
+<%= link_to "Editar", edit_sale_path(@sale) %> |
+<%= link_to "Voltar", sales_path %>

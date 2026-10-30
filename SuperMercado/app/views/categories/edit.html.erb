@@ -1,0 +1,8 @@
+<h1>Editar categoria</h1>
+
+<%# ERRO: aqui o campo era form.text_field :nome, mas a coluna se chama name -> erro "undefined method 'nome'". %>
+<%# Aconteceu porque o formulário estava copiado no new e no edit, e só um foi corrigido. %>
+<%# CORREÇÃO: um formulário só (_form.html.erb) para os dois. Corrigiu uma vez, corrigiu nos dois. %>
+<%= render "form", category: @category %>
+
+<%= link_to "Voltar", categories_path %>

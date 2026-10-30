@@ -1,0 +1,248 @@
+/*
+ * CSS do SuperMercado: um arquivo só, vale para TODAS as telas.
+ * O Propshaft (stylesheet_link_tag :app no layout) carrega todo .css desta pasta.
+ * Ideia visual: etiqueta de preço de prateleira (amarelo + texto escuro) e vermelho de "oferta" para apagar.
+ * As views não têm classes: o CSS usa as tags (h1, ul, li, form...) que todas as telas já têm.
+ */
+
+/* Variáveis: as cores ficam num lugar só. Para mudar uma cor no site todo, mude aqui. */
+:root {
+  --fundo: #eef1f4;
+  --papel: #ffffff;
+  --tinta: #1d2b36;
+  --linha: #d5dbe1;
+  --etiqueta: #ffd23f;
+  --oferta: #c8102e;
+  --ok: #1b6e3a;
+}
+
+/* Página centralizada, com largura máxima para o texto não ficar esticado. */
+body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: "Barlow", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* Título = etiqueta de preço: fundo amarelo e borda escura, como na prateleira. */
+/* width: fit-content deixa a etiqueta do tamanho do texto. */
+h1,
+h2 {
+  width: fit-content;
+  margin: 0 0 16px;
+  padding: 4px 16px 4px 12px;
+  background: var(--etiqueta);
+  border-left: 8px solid var(--tinta);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.2rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+a {
+  color: var(--tinta);
+}
+
+/* Lista do index: uma caixa branca, cada <li> é uma linha. */
+ul {
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+}
+
+/* :has (CSS moderno): esconde a caixa quando a lista ainda não tem nenhum item. */
+ul:not(:has(li)) {
+  display: none;
+}
+
+/* flex: coloca nome, links e botão lado a lado; wrap quebra a linha no celular. */
+li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px dashed var(--linha);
+}
+
+li:last-child {
+  border-bottom: 0;
+}
+
+/* button_to cria um <form> em volta do botão. inline deixa ele na mesma linha. */
+form.button_to {
+  display: inline;
+}
+
+/* Botões amarelos: o "Salvar" do formulário e o link "Novo..." logo depois do título (h1 + a). */
+input[type="submit"],
+h1 + a {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--etiqueta);
+  border: 2px solid var(--tinta);
+  border-radius: 4px;
+  color: var(--tinta);
+  font: 600 1rem "Barlow", system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+h1 + a:hover {
+  background: #ffc400;
+}
+
+/* Botão "Apagar" (o <button> do button_to): contorno vermelho, fica cheio ao passar o mouse. */
+button {
+  padding: 4px 12px;
+  background: var(--papel);
+  border: 2px solid var(--oferta);
+  border-radius: 4px;
+  color: var(--oferta);
+  font: 600 0.95rem "Barlow", system-ui, sans-serif;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--oferta);
+  color: var(--papel);
+}
+
+/* Formulário (_form): body > form pega só o formulário principal, não o do botão Apagar. */
+body > form {
+  margin-bottom: 16px;
+  padding: 20px;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+}
+
+form p {
+  margin: 0 0 16px;
+}
+
+label {
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+select {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 360px;
+  padding: 8px 10px;
+  background: var(--papel);
+  border: 1px solid #8a96a3;
+  border-radius: 4px;
+  color: var(--tinta);
+  font: inherit;
+}
+
+/* Quando a validação falha, o Rails coloca o label e o campo dentro de <div class="field_with_errors">. */
+/* display: contents faz a div "sumir" do layout (senão ela quebra o espaçamento). */
+.field_with_errors {
+  display: contents;
+}
+
+.field_with_errors input,
+.field_with_errors select {
+  border: 2px solid var(--oferta);
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+
+/* Acessibilidade: contorno bem visível em quem está com o foco do teclado (tecla Tab). */
+:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+/* Mensagens do layout (notice = sucesso, alert = erro). */
+.notice,
+.alert {
+  padding: 10px 14px;
+  font-weight: 600;
+}
+
+.notice {
+  background: #e3f3e8;
+  border-left: 6px solid var(--ok);
+  color: var(--ok);
+}
+
+.alert {
+  background: #fbe5e8;
+  border-left: 6px solid var(--oferta);
+  color: var(--oferta);
+}
+
+/* :empty esconde a caixa quando não tem mensagem nenhuma. */
+.notice:empty,
+.alert:empty {
+  display: none;
+}
+
+/* ---------- Página inicial (app/views/home/index.html.erb) ---------- */
+/* Tudo começa com .home, então só vale dentro de <section class="home">. */
+
+.home h1 {
+  font-size: 3.4rem;
+}
+
+.home > p {
+  max-width: 60ch;
+  font-size: 1.15rem;
+}
+
+/* grid: os 5 passos lado a lado; auto-fit coloca quantos couberem na largura da tela. */
+.home ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: passo;
+}
+
+/* Cada passo é uma etiqueta de prateleira. Também desfaz o estilo de "linha" do li lá de cima. */
+.home li {
+  display: block;
+  padding: 16px;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-top: 6px solid var(--etiqueta);
+  counter-increment: passo;
+}
+
+/* counter: o CSS conta os <li> e escreve o número (1, 2, 3...) grande, como o preço na etiqueta. */
+.home li::before {
+  content: counter(passo);
+  display: block;
+  font: 700 2.6rem/1 "Barlow Condensed", sans-serif;
+}
+
+.home li a {
+  display: block;
+  margin: 4px 0;
+  font: 700 1.5rem "Barlow Condensed", sans-serif;
+}
+
+.home li span {
+  color: #4a5864;
+}

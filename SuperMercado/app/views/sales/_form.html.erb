@@ -1,0 +1,29 @@
+<%# Mesmo formulário para o new e o edit (veja a explicação em categories/_form.html.erb). %>
+<%= form_with model: sale do |form| %>
+  <% sale.errors.full_messages.each do |mensagem| %>
+    <p style="color: red"><%= mensagem %></p>
+  <% end %>
+
+  <p>
+    <%= form.label :checkout_id, "Caixa" %><br>
+    <%= form.collection_select :checkout_id, Checkout.all, :id, :name, prompt: "Selecione" %>
+  </p>
+
+  <p>
+    <%= form.label :total, "Total" %><br>
+    <%= form.number_field :total, step: 0.01 %>
+  </p>
+
+  <p>
+    <%= form.label :status, "Status" %><br>
+    <%# select simples: as opções vêm da lista STATUSES do model Sale. %>
+    <%= form.select :status, Sale::STATUSES %>
+  </p>
+
+  <p>
+    <%= form.label :completed_at, "Finalizada em" %><br>
+    <%= form.datetime_field :completed_at %>
+  </p>
+
+  <%= form.submit %>
+<% end %>

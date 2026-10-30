@@ -1,0 +1,14 @@
+<h1>Vendas</h1>
+<%= link_to "Nova venda", new_sale_path %>
+
+<ul>
+  <% @sales.each do |sale| %>
+    <li>
+      <%# #{} coloca um valor dentro do texto: "Venda ##{sale.id}" vira "Venda #1". %>
+      <%= link_to "Venda ##{sale.id}", sale %> | <%= sale.checkout.name %> |
+      <%= number_to_currency(sale.total, unit: "R$ ") %> | <%= sale.status %> |
+      <%= link_to "Editar", edit_sale_path(sale) %> |
+      <%= button_to "Apagar", sale_path(sale), method: :delete, data: { turbo_confirm: "Certeza?" } %>
+    </li>
+  <% end %>
+</ul>
